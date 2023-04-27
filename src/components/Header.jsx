@@ -5,7 +5,7 @@ const Header = ({ isLoggedIn, email, onSignOut }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const path = (location.pathname === '/sign-in') ? '/sign-up' : 'sign-in';
+  const path = (location.pathname === '/sign-in') ? '/sign-up' : '/sign-in';
   const linkName = (location.pathname === '/sign-in') ? 'Регистрация' : 'Войти';
 
   return (
