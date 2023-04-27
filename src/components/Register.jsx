@@ -25,8 +25,8 @@ const Register = (props) => {
       <form name="register" className="auth__form" onSubmit={handleSubmit}>
         <input
           type="email"
-          name="reg-email"
-          id="reg-email"
+          name="email"
+          id="email"
           placeholder="Email"
           className="auth__input"
           value={email ?? ""}
@@ -34,11 +34,11 @@ const Register = (props) => {
           autoComplete="email"
           required
         />
-        <span className="auth__input-error reg-email-error"></span>
+        <span className="auth__input-error regemail-error"></span>
         <input
           type="password"
-          name="reg-password"
-          id="reg-password"
+          name="password"
+          id="password"
           placeholder="Пароль"
           className="auth__input"
           value={password ?? ""}

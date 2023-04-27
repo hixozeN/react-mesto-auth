@@ -3,7 +3,7 @@ import Card from "./Card.jsx";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 const Main = (props) => {
-  const userData = useContext(CurrentUserContext).currentUser;
+  const userData = useContext(CurrentUserContext);
 
   return (
     <main className="page">

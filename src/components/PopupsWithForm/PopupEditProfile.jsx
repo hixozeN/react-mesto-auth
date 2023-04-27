@@ -4,21 +4,29 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 const PopupEditProfile = (props) => {
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [formValues, setFormValues] = useState({
+    username: "", userjob: ""
+  });
+  const { username, userjob } = formValues;
+
+  const handleInputChange = (evt) => {
+    const { name, value } = evt.target;
+    setFormValues((prev) => ({...prev, [name]: value}))
+  }
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser, props.isOpen]);
+    setFormValues({
+      username: currentUser.name,
+      userjob: currentUser.about
+    })
+  }, [props.isOpen]);
 
   const handleSumbit = (evt) => {
     evt.preventDefault();
     props.onUpdateUser({
-      name, about: description
+      name: username, about: userjob
     })
   }
-  
   return (
     <PopupWithForm
       name="profile-edit"
@@ -36,8 +44,8 @@ const PopupEditProfile = (props) => {
         id="username"
         minLength="2"
         maxLength="40"
-        value={name ?? ''}
-        onChange={(evt) => setName(evt.target.value)}
+        value={username ?? ''}
+        onChange={handleInputChange}
         required
       />
       <span className="popup__input-error username-error"></span>
@@ -49,8 +57,8 @@ const PopupEditProfile = (props) => {
         id="userjob"
         minLength="2"
         maxLength="200"
-        value={description ?? ''}
-        onChange={(evt) => setDescription(evt.target.value)}
+        value={userjob ?? ''}
+        onChange={handleInputChange}
         required
       />
       <span className="popup__input-error userjob-error"></span>

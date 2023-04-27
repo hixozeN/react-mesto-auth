@@ -192,7 +192,7 @@ function App() {
   };
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser }}>
+    <CurrentUserContext.Provider value={currentUser}>
       <Header isLoggedIn={isLoggedIn} onSignOut={handleSignOut} email={email} />
       <Routes>
         <Route
