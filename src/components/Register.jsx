@@ -1,22 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useFormAndValidation from "../hooks/FormValidation/useFormAndValidation";
 
 const Register = (props) => {
-  const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = formValues;
-
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormValues((prev) => ({ ...prev, [name]: value }));
-  };
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
+  const { email, password } = values;
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     props.onRegister({ email, password });
-    setFormValues({ email: "", password: "" });
+    resetForm();
   };
 
   return (
@@ -30,11 +24,17 @@ const Register = (props) => {
           placeholder="Email"
           className="auth__input"
           value={email ?? ""}
-          onChange={handleInputChange}
+          onChange={handleChange}
           autoComplete="email"
           required
         />
-        <span className="auth__input-error regemail-error"></span>
+        <span
+          className={`auth__input-error email-error ${
+            errors.email && "popup__input-error_active"
+          }`}
+        >
+          {errors.email}
+        </span>
         <input
           type="password"
           name="password"
@@ -42,12 +42,24 @@ const Register = (props) => {
           placeholder="Пароль"
           className="auth__input"
           value={password ?? ""}
-          onChange={handleInputChange}
+          onChange={handleChange}
           autoComplete="new-password"
           required
         />
-        <span className="auth__input-error reg-password-error"></span>
-        <button className="auth__submit-button">{props.btnName}</button>
+        <span
+          className={`auth__input-error password-error ${
+            errors.password && "popup__input-error_active"
+          }`}
+        >
+          {errors.password}
+        </span>
+        <button
+          type="submit"
+          className="auth__submit-button"
+          disabled={!isValid}
+        >
+          {props.btnName}
+        </button>{" "}
         <Link to="/sign-in" className="auth__link">
           Уже зарегистрированы? Войти
         </Link>

@@ -21,3 +21,8 @@
   }
   
 }
+
+.auth__submit-button:disabled {
+  opacity: .5;
+  cursor: auto;
+}

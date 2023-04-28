@@ -1,21 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import PopupWithForm from "../PopupWithForm";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import useFormAndValidation from "../../hooks/FormValidation/useFormAndValidation";
 
 const PopupEditProfile = (props) => {
   const currentUser = useContext(CurrentUserContext);
-  const [formValues, setFormValues] = useState({
-    username: "", userjob: ""
-  });
-  const { username, userjob } = formValues;
-
-  const handleInputChange = (evt) => {
-    const { name, value } = evt.target;
-    setFormValues((prev) => ({...prev, [name]: value}))
-  }
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
+  const { username, userjob } = values;
 
   useEffect(() => {
-    setFormValues({
+    resetForm();
+    setValues({
       username: currentUser.name,
       userjob: currentUser.about
     })
@@ -27,6 +22,7 @@ const PopupEditProfile = (props) => {
       name: username, about: userjob
     })
   }
+
   return (
     <PopupWithForm
       name="profile-edit"
@@ -35,6 +31,7 @@ const PopupEditProfile = (props) => {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSumbit}
+      isValid={isValid}
     >
       <input
         className="popup__input popup__input_field_name"
@@ -45,10 +42,10 @@ const PopupEditProfile = (props) => {
         minLength="2"
         maxLength="40"
         value={username ?? ''}
-        onChange={handleInputChange}
+        onChange={handleChange}
         required
       />
-      <span className="popup__input-error username-error"></span>
+      <span className={`popup__input-error username-error ${errors.username && 'popup__input-error_active'}`}>{errors.username}</span>
       <input
         className="popup__input popup__input_field_job"
         type="text"
@@ -58,10 +55,10 @@ const PopupEditProfile = (props) => {
         minLength="2"
         maxLength="200"
         value={userjob ?? ''}
-        onChange={handleInputChange}
+        onChange={handleChange}
         required
       />
-      <span className="popup__input-error userjob-error"></span>
+      <span className={`popup__input-error userjob-error ${errors.userjob && 'popup__input-error_active'}`}>{errors.userjob}</span>
     </PopupWithForm>
   );
 };
