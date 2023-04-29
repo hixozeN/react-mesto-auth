@@ -14,7 +14,7 @@ const PopupEditProfile = (props) => {
       username: currentUser.name,
       userjob: currentUser.about
     })
-  }, [props.isOpen]);
+  }, [currentUser, props.isOpen, resetForm, setValues]);
 
   const handleSumbit = (evt) => {
     evt.preventDefault();

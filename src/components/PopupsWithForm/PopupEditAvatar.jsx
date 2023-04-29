@@ -16,7 +16,7 @@ const PopupEditAvatar = (props) => {
   useEffect(() => {
     resetForm();
     setValues({avatar: ""});
-  }, [props.isOpen]);
+  }, [props.isOpen, resetForm, setValues]);
 
   return (
     <PopupWithForm

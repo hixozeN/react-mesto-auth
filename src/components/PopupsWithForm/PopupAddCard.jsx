@@ -3,7 +3,7 @@ import PopupWithForm from "../PopupWithForm";
 import useFormAndValidation from "../../hooks/FormValidation/useFormAndValidation";
 
 const PopupAddCard = (props) => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
   const { placeName, placeLink } = values;
 
   const handleSubmit = (evt) => {
@@ -15,9 +15,8 @@ const PopupAddCard = (props) => {
   };
 
   useEffect(() => {
-    setValues({ placeName: "", placeLink: "" });
     resetForm();
-  }, [props.isOpen]);
+  }, [props.isOpen, resetForm]);
 
   return (
     <PopupWithForm

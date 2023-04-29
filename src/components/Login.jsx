@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import useFormAndValidation from "../hooks/FormValidation/useFormAndValidation";
 
 const Login = (props) => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
   const { email, password } = values;
 
   const handleSubmit = (evt) => {

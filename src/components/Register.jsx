@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import useFormAndValidation from "../hooks/FormValidation/useFormAndValidation";
 
 const Register = (props) => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
+  const { values, handleChange, errors, isValid, resetForm } =
     useFormAndValidation();
   const { email, password } = values;
 
